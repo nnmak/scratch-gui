@@ -288,10 +288,6 @@ const GUIComponent = props => {
                                         className={tabClassNames.tab}
                                         onClick={onActivateTestsTab}
                                     >
-                                        <img
-                                            draggable={false}
-                                            src={soundsIcon}
-                                        />
                                         <FormattedMessage
                                             defaultMessage="Tests"
                                             description="Button to get to the tests panel"

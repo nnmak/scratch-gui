@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import bindAll from 'lodash.bindall';
-import {defineMessages, injectIntl} from 'react-intl';
+import {injectIntl} from 'react-intl';
 import VM from 'scratch-vm';
 
 import {connect} from 'react-redux';
+
+import LocalTests from './local-tests.jsx';
+import DodonaTests from './dodona-tests.jsx';
 
 import {
     activateTab,
@@ -35,11 +38,12 @@ class TestsTab extends React.Component {
     render () {
         const {} = this.props;
 
-        const messages = defineMessages({});
-
         return (
-            <p>"Test"
-            </p>
+            <div>
+                <LocalTests />
+                <DodonaTests />
+            </div>
+
         );
     }
 }
