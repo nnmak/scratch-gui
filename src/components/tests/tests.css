@@ -1,0 +1,11 @@
+@import "../../css/colors.css";
+
+.main-tests {
+    background: white;
+}
+
+.test-button {
+    background-color: $ui-white;
+    height: 34px;
+}
+

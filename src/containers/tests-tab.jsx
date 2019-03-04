@@ -6,8 +6,6 @@ import VM from 'scratch-vm';
 
 import {connect} from 'react-redux';
 
-import LocalTests from './local-tests.jsx';
-import DodonaTests from './dodona-tests.jsx';
 
 import {
     activateTab,
@@ -15,6 +13,7 @@ import {
 } from '../reducers/editor-tab';
 
 import errorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
+import Tests from '../components/tests/tests.jsx';
 
 class TestsTab extends React.Component {
     constructor (props) {
@@ -40,8 +39,7 @@ class TestsTab extends React.Component {
 
         return (
             <div>
-                <LocalTests />
-                <DodonaTests />
+                <Tests/>
             </div>
 
         );
