@@ -107,7 +107,7 @@ class GUI extends React.Component {
             ...componentProps
         } = this.props;
 
-        const guiComponent = () => {
+        const guicomponent = (() => {
             return (
                 <GUIComponent
                     loading={fetchingProject || isLoading || loadingStateVisible}
@@ -116,13 +116,13 @@ class GUI extends React.Component {
                     {children}
                 </GUIComponent>
             );
-        };
+        });
 
         return (
             <BrowserRouter>
                 <Route
-                    component={guiComponent}
-                    path="/:exerciseId"
+                    component={guicomponent}
+                    path="/:encoded"
                 />
             </BrowserRouter>
         );

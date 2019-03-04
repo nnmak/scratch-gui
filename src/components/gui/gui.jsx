@@ -111,6 +111,7 @@ const GUIComponent = props => {
         showComingSoon,
         soundsTabVisible,
         stageSizeMode,
+        staticContext,
         targetIsStage,
         telemetryModalVisible,
         testsTabVisible,
@@ -134,6 +135,13 @@ const GUIComponent = props => {
     if (isRendererSupported === null) {
         isRendererSupported = Renderer.isSupported();
     }
+
+    /*const base64s = btoa(JSON.stringify({courseId:"John", exerciseId:"Wick", scratchUrl:"dodona.be/oefening1.sb3", testsUrl:"dodona.be/test1.js"}));
+    console.log(base64s);
+    console.log(atob(base64s));
+    console.log(JSON.parse(atob(base64s)));*/
+    const urlData = JSON.parse(atob(props.match.params.encoded));
+
 
     return (<MediaQuery minWidth={layout.fullSizeMinWidth}>{isFullSize => {
         const stageSize = resolveStageSize(stageSizeMode, isFullSize);
@@ -213,7 +221,7 @@ const GUIComponent = props => {
                     canShare={canShare}
                     className={styles.menuBarPosition}
                     enableCommunity={enableCommunity}
-                    exerciseId={props.match.params.exerciseId}
+                    exerciseId={urlData.exerciseId}
                     isShared={isShared}
                     renderLogin={renderLogin}
                     showComingSoon={showComingSoon}
