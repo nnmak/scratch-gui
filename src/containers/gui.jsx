@@ -3,7 +3,7 @@ import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
-import {BrowserRouter, Router, Route} from 'react-router-dom';
+import {HashRouter, BrowserRouter, Router, Route, withRouter} from 'react-router-dom';
 import VM from 'scratch-vm';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 
@@ -107,24 +107,13 @@ class GUI extends React.Component {
             ...componentProps
         } = this.props;
 
-        const guicomponent = (() => {
-            return (
-                <GUIComponent
-                    loading={fetchingProject || isLoading || loadingStateVisible}
-                    {...componentProps}
-                >
-                    {children}
-                </GUIComponent>
-            );
-        });
-
         return (
-            <BrowserRouter>
-                <Route
-                    component={guicomponent}
-                    path="/:encoded"
-                />
-            </BrowserRouter>
+            <GUIComponent
+                loading={fetchingProject || isLoading || loadingStateVisible}
+                {...componentProps}
+            >
+                {children}
+            </GUIComponent>
         );
     }
 }
@@ -206,10 +195,10 @@ const mapDispatchToProps = dispatch => ({
     onUpdateReduxProjectTitle: title => dispatch(setProjectTitle(title))
 });
 
-const ConnectedGUI = injectIntl(connect(
+const ConnectedGUI = (injectIntl(connect(
     mapStateToProps,
     mapDispatchToProps
-)(GUI));
+)(GUI)));
 
 // note that redux's 'compose' function is just being used as a general utility to make
 // the hierarchy of HOC constructor calls clearer here; it has nothing to do with redux's

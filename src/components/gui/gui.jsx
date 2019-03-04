@@ -136,11 +136,8 @@ const GUIComponent = props => {
         isRendererSupported = Renderer.isSupported();
     }
 
-    /*const base64s = btoa(JSON.stringify({courseId:"John", exerciseId:"Wick", scratchUrl:"dodona.be/oefening1.sb3", testsUrl:"dodona.be/test1.js"}));
-    console.log(base64s);
-    console.log(atob(base64s));
-    console.log(JSON.parse(atob(base64s)));*/
     const urlData = JSON.parse(atob(props.match.params.encoded));
+    //const urlData = JSON.parse(atob('eyJjb3Vyc2VJZCI6IkpvaG4iLCJleGVyY2lzZUlkIjoiV2ljayIsInNjcmF0Y2hVcmwiOiJkb2RvbmEuYmUvb2VmZW5pbmcxLnNiMyIsInRlc3RzVXJsIjoiZG9kb25hLmJlL3Rlc3QxLmpzIn0='));
 
 
     return (<MediaQuery minWidth={layout.fullSizeMinWidth}>{isFullSize => {

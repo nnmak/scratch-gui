@@ -7,6 +7,8 @@ import GUI from '../containers/gui.jsx';
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import TitledHOC from '../lib/titled-hoc.jsx';
 import log from '../lib/log.js';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+
 
 const onClickLogo = () => {
     window.location = 'https://scratch.mit.edu';
@@ -63,23 +65,34 @@ export default appTarget => {
         window.onbeforeunload = () => true;
     }
 
+    const wrappedgui = (() => {
+        return (
+            // important: this is checking whether `simulateScratchDesktop` is truthy, not just defined!
+            simulateScratchDesktop ?
+                <WrappedGui
+                    isScratchDesktop
+                    showTelemetryModal
+                    canSave={false}
+                    onTelemetryModalCancel={handleTelemetryModalCancel}
+                    onTelemetryModalOptIn={handleTelemetryModalOptIn}
+                    onTelemetryModalOptOut={handleTelemetryModalOptOut}
+                /> :
+                <WrappedGui
+                    backpackVisible
+                    showComingSoon
+                    backpackHost={backpackHost}
+                    canSave={false}
+                    onClickLogo={onClickLogo}
+                />
+        );
+    });
+
     ReactDOM.render(
-        // important: this is checking whether `simulateScratchDesktop` is truthy, not just defined!
-        simulateScratchDesktop ?
-            <WrappedGui
-                isScratchDesktop
-                showTelemetryModal
-                canSave={false}
-                onTelemetryModalCancel={handleTelemetryModalCancel}
-                onTelemetryModalOptIn={handleTelemetryModalOptIn}
-                onTelemetryModalOptOut={handleTelemetryModalOptOut}
-            /> :
-            <WrappedGui
-                backpackVisible
-                showComingSoon
-                backpackHost={backpackHost}
-                canSave={false}
-                onClickLogo={onClickLogo}
-            />,
+        <Router>
+            <Route
+                component={wrappedgui}
+                path="/:encoded"
+            />
+        </Router>,
         appTarget);
 };
