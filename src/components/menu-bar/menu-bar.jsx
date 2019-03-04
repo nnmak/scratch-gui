@@ -83,12 +83,12 @@ const ariaMessages = defineMessages({
 });
 
 const MenuBarItemTooltip = ({
-    children,
-    className,
-    enable,
-    id,
-    place = 'bottom'
-}) => {
+                                children,
+                                className,
+                                enable,
+                                id,
+                                place = 'bottom'
+                            }) => {
     if (enable) {
         return (
             <React.Fragment>
@@ -153,12 +153,15 @@ class MenuBar extends React.Component {
             'restoreOptionMessage'
         ]);
     }
+
     componentDidMount () {
         document.addEventListener('keydown', this.handleKeyPress);
     }
+
     componentWillUnmount () {
         document.removeEventListener('keydown', this.handleKeyPress);
     }
+
     handleClickNew () {
         let readyToReplaceProject = true;
         // if the project is dirty, and user owns the project, we will autosave.
@@ -177,18 +180,22 @@ class MenuBar extends React.Component {
         }
         this.props.onRequestCloseFile();
     }
+
     handleClickRemix () {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
     }
+
     handleClickSave () {
         this.props.onClickSave();
         this.props.onRequestCloseFile();
     }
+
     handleClickSaveAsCopy () {
         this.props.onClickSaveAsCopy();
         this.props.onRequestCloseFile();
     }
+
     handleClickSeeCommunity (waitForUpdate) {
         if (this.props.canSave) { // save before transitioning to project page
             this.props.autoUpdateProject();
@@ -197,6 +204,7 @@ class MenuBar extends React.Component {
             waitForUpdate(false); // immediately transition to project page
         }
     }
+
     handleClickShare (waitForUpdate) {
         if (!this.props.isShared) {
             if (this.props.canShare) { // save before transitioning to project page
@@ -210,18 +218,21 @@ class MenuBar extends React.Component {
             }
         }
     }
+
     handleRestoreOption (restoreFun) {
         return () => {
             restoreFun();
             this.props.onRequestCloseEdit();
         };
     }
+
     handleCloseFileMenuAndThen (fn) {
         return () => {
             this.props.onRequestCloseFile();
             fn();
         };
     }
+
     handleKeyPress (event) {
         const modifier = bowser.mac ? event.metaKey : event.ctrlKey;
         if (modifier && event.key === 's') {
@@ -229,40 +240,43 @@ class MenuBar extends React.Component {
             event.preventDefault();
         }
     }
+
     handleLanguageMouseUp (e) {
         if (!this.props.languageMenuOpen) {
             this.props.onClickLanguage(e);
         }
     }
+
     restoreOptionMessage (deletedItem) {
         switch (deletedItem) {
-        case 'Sprite':
-            return (<FormattedMessage
-                defaultMessage="Restore Sprite"
-                description="Menu bar item for restoring the last deleted sprite."
-                id="gui.menuBar.restoreSprite"
-            />);
-        case 'Sound':
-            return (<FormattedMessage
-                defaultMessage="Restore Sound"
-                description="Menu bar item for restoring the last deleted sound."
-                id="gui.menuBar.restoreSound"
-            />);
-        case 'Costume':
-            return (<FormattedMessage
-                defaultMessage="Restore Costume"
-                description="Menu bar item for restoring the last deleted costume."
-                id="gui.menuBar.restoreCostume"
-            />);
-        default: {
-            return (<FormattedMessage
-                defaultMessage="Restore"
-                description="Menu bar item for restoring the last deleted item in its disabled state." /* eslint-disable-line max-len */
-                id="gui.menuBar.restore"
-            />);
-        }
+            case 'Sprite':
+                return (<FormattedMessage
+                    defaultMessage="Restore Sprite"
+                    description="Menu bar item for restoring the last deleted sprite."
+                    id="gui.menuBar.restoreSprite"
+                />);
+            case 'Sound':
+                return (<FormattedMessage
+                    defaultMessage="Restore Sound"
+                    description="Menu bar item for restoring the last deleted sound."
+                    id="gui.menuBar.restoreSound"
+                />);
+            case 'Costume':
+                return (<FormattedMessage
+                    defaultMessage="Restore Costume"
+                    description="Menu bar item for restoring the last deleted costume."
+                    id="gui.menuBar.restoreCostume"
+                />);
+            default: {
+                return (<FormattedMessage
+                    defaultMessage="Restore"
+                    description="Menu bar item for restoring the last deleted item in its disabled state." /* eslint-disable-line max-len */
+                    id="gui.menuBar.restore"
+                />);
+            }
         }
     }
+
     render () {
         const saveNowMessage = (
             <FormattedMessage
@@ -338,7 +352,7 @@ class MenuBar extends React.Component {
                                     src={dropdownCaret}
                                 />
                             </div>
-                            <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)} />
+                            <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)}/>
                         </div>
                         <div
                             className={classNames(styles.menuBarItem, styles.hoverable, {
@@ -466,7 +480,7 @@ class MenuBar extends React.Component {
                             </MenuBarMenu>
                         </div>
                     </div>
-                    <Divider className={classNames(styles.divider)} />
+                    <Divider className={classNames(styles.divider)}/>
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                         className={classNames(styles.menuBarItem, styles.hoverable)}
@@ -478,7 +492,7 @@ class MenuBar extends React.Component {
                         />
                         <FormattedMessage {...ariaMessages.tutorials} />
                     </div>
-                    <Divider className={classNames(styles.divider)} />
+                    <Divider className={classNames(styles.divider)}/>
                     {this.props.canEditTitle ? (
                         <div className={classNames(styles.menuBarItem, styles.growable)}>
                             <MenuBarItemTooltip
@@ -522,7 +536,7 @@ class MenuBar extends React.Component {
                         ) : (
                             this.props.showComingSoon ? (
                                 <MenuBarItemTooltip id="share-button">
-                                    <ShareButton className={styles.menuBarButton} />
+                                    <ShareButton className={styles.menuBarButton}/>
                                 </MenuBarItemTooltip>
                             ) : []
                         )}
@@ -548,9 +562,13 @@ class MenuBar extends React.Component {
                             )
                         ) : (this.props.showComingSoon ? (
                             <MenuBarItemTooltip id="community-button">
-                                <CommunityButton className={styles.menuBarButton} />
+                                <CommunityButton className={styles.menuBarButton}/>
                             </MenuBarItemTooltip>
                         ) : [])}
+                    </div>
+
+                    <div className={styles.menuBarItem}>
+                        id: {this.props.exerciseId}
                     </div>
                 </div>
 
@@ -559,7 +577,7 @@ class MenuBar extends React.Component {
                 <div className={styles.accountInfoGroup}>
                     <div className={styles.menuBarItem}>
                         {this.props.canSave && (
-                            <SaveStatus />
+                            <SaveStatus/>
                         )}
                     </div>
                     {this.props.sessionExists ? (
@@ -722,6 +740,7 @@ MenuBar.propTypes = {
     className: PropTypes.string,
     editMenuOpen: PropTypes.bool,
     enableCommunity: PropTypes.bool,
+    exerciseId: PropTypes.string,
     fileMenuOpen: PropTypes.bool,
     intl: intlShape,
     isRtl: PropTypes.bool,
@@ -761,7 +780,8 @@ MenuBar.propTypes = {
 };
 
 MenuBar.defaultProps = {
-    onShare: () => {}
+    onShare: () => {
+    }
 };
 
 const mapStateToProps = state => {

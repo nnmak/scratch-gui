@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import omit from 'lodash.omit';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import {defineMessages, FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import {connect} from 'react-redux';
 import MediaQuery from 'react-responsive';
@@ -212,6 +213,7 @@ const GUIComponent = props => {
                     canShare={canShare}
                     className={styles.menuBarPosition}
                     enableCommunity={enableCommunity}
+                    exerciseId={props.match.params.exerciseId}
                     isShared={isShared}
                     renderLogin={renderLogin}
                     showComingSoon={showComingSoon}
@@ -448,6 +450,6 @@ const mapStateToProps = state => ({
     stageSizeMode: state.scratchGui.stageSize.stageSize
 });
 
-export default injectIntl(connect(
+export default withRouter(injectIntl(connect(
     mapStateToProps
-)(GUIComponent));
+)(GUIComponent)));

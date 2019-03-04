@@ -3,7 +3,7 @@ import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
-import {Route} from 'react-router-dom';
+import {BrowserRouter, Router, Route} from 'react-router-dom';
 import VM from 'scratch-vm';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 
@@ -54,6 +54,7 @@ class GUI extends React.Component {
         this.setReduxTitle(this.props.projectTitle);
         this.props.onStorageInit(storage);
     }
+
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
             this.props.onUpdateProjectId(this.props.projectId);
@@ -67,6 +68,7 @@ class GUI extends React.Component {
             this.props.onProjectLoaded();
         }
     }
+
     setReduxTitle (newTitle) {
         if (newTitle === null || typeof newTitle === 'undefined') {
             this.props.onUpdateReduxProjectTitle(
@@ -76,6 +78,7 @@ class GUI extends React.Component {
             this.props.onUpdateReduxProjectTitle(newTitle);
         }
     }
+
     render () {
         if (this.props.isError) {
             throw new Error(
@@ -104,15 +107,24 @@ class GUI extends React.Component {
             ...componentProps
         } = this.props;
 
-        return (
-            <Route path="/:id" render = {() => (
+        const guiComponent = () => {
+            return (
                 <GUIComponent
                     loading={fetchingProject || isLoading || loadingStateVisible}
                     {...componentProps}
                 >
                     {children}
                 </GUIComponent>
-            )}/>
+            );
+        };
+
+        return (
+            <BrowserRouter>
+                <Route
+                    component={guiComponent}
+                    path="/:exerciseId"
+                />
+            </BrowserRouter>
         );
     }
 }
@@ -145,8 +157,10 @@ GUI.propTypes = {
 GUI.defaultProps = {
     isScratchDesktop: false,
     onStorageInit: storageInstance => storageInstance.addOfficialScratchWebStores(),
-    onProjectLoaded: () => {},
-    onUpdateProjectId: () => {}
+    onProjectLoaded: () => {
+    },
+    onUpdateProjectId: () => {
+    }
 };
 
 const mapStateToProps = state => {
@@ -194,7 +208,7 @@ const mapDispatchToProps = dispatch => ({
 
 const ConnectedGUI = injectIntl(connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(GUI));
 
 // note that redux's 'compose' function is just being used as a general utility to make

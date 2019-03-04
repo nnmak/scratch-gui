@@ -18,7 +18,8 @@ const base = {
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
-        port: process.env.PORT || 8601
+        port: process.env.PORT || 8601,
+        historyApiFallback: true
     },
     output: {
         library: 'GUI',
